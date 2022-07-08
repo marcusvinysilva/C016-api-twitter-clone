@@ -32,6 +32,11 @@ const createUser = async (req, res) => {
   res.status(201).send(user);
 };
 
+const findAllUsers = async (req, res) => {
+  res.send({ message: "find all ok" })
+}
+
 module.exports = {
   createUser,
+  findAllUsers
 };
