@@ -33,7 +33,13 @@ const createUser = async (req, res) => {
 };
 
 const findAllUsers = async (req, res) => {
-  res.send({ message: "find all ok" })
+  const users = await userService.findAllUsers();
+
+  if (users.length == 0) {
+    return res.status(206).send({ message: "Não existem usuários cadastrados!" })
+  }
+
+  res.send(users)
 }
 
 module.exports = {
