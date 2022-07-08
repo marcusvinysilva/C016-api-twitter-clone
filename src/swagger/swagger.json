@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Twitter Clone",
+    "description": "API do Clone do Twitter",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "URL de teste"
+    }
+  ],
+  "paths": {
+    "/users/": {
+      "post": {
+        "summary": "Cria um novo usuário",
+        "description": "Rota responsável por criar um usuário.",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "User": {
+                  "value": {
+                    "name": "Marcus Silva",
+                    "username": "msilva",
+                    "email": "msilva@gmail.com",
+                    "password": "12345",
+                    "avatar": "https://avatars.githubusercontent.com/u/71359413?v=4"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Alguns campos estão faltando ou usuário já existe"
+          },
+          "500": {
+            "description": "Aconteceu algum erro ao criar o usuário."
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Exibe todos os usuários",
+        "description": "Rota responsável por exibir todos os usuários.",
+        "tags": ["Users"],
+        "responses": {
+          "206": {
+            "description": "Não existe usuários cadastrados!"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" },
+          "avatar": { "type": "string" }
+        }
+      }
+    }
+  }
+}
