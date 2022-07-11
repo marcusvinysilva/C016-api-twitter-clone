@@ -16,7 +16,9 @@ const login = async (req, res) => {
     return res.status(400).send({ message: "Senha inválida!" });
   }
 
-  res.send(user);
+  const token = authService.generateToken(user.id);
+
+  res.send({ token });
 };
 
 module.exports = { login };
