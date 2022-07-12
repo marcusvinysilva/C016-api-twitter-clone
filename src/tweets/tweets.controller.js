@@ -19,6 +19,17 @@ const createTweet = async (req, res) => {
   });
 };
 
+const findAllTweets = async (req, res) => {
+  const tweets = await tweetService.findAllTweets();
+
+  if (tweets.length === 0) {
+    return res.send({ message: "Não existem tweets!" });
+  }
+
+  res.send(tweets);
+};
+
 module.exports = {
   createTweet,
+  findAllTweets,
 };
