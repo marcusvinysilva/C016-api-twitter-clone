@@ -62,6 +62,7 @@
         "summary": "Exibe todos os usuários",
         "description": "Rota responsável por exibir todos os usuários.",
         "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "206": {
             "description": "Não existe usuários cadastrados!"
@@ -81,9 +82,48 @@
           }
         }
       }
+    },
+    "/auth/": {
+      "post": {
+        "summary": "Entrar no Twitter",
+        "description": "Rota responsável por fazer o login de um usuário cadastrado",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "#ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "User": {
+                  "value": {
+                    "email": "msilva@gmail.com",
+                    "password": "12345"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Informações de login inválidas!"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "User": {
         "type": "object",
