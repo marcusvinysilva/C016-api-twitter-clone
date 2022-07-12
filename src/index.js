@@ -5,6 +5,7 @@ const connectToDatabase = require("./database/database");
 const userRoute = require("./users/users.route");
 const swaggerRoute = require("./swagger/swagger.route");
 const authRoute = require("./auth/auth.route");
+const tweetRoute = require("./tweets/tweets.route");
 
 const port = process.env.PORT || 3001;
 
@@ -18,6 +19,7 @@ connectToDatabase();
 app.use("/users", userRoute);
 app.use("/api-docs", swaggerRoute);
 app.use("/auth", authRoute);
+app.use("/tweets/", tweetRoute);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
