@@ -9,9 +9,12 @@ const findByUsername = async (username) =>
 
 const findAllUsers = async () => await User.find()
 
+const findByIdUser = async (userId) => await User.findById(userId);
+
 module.exports = {
   createUser,
   findByEmail,
   findByUsername,
-  findAllUsers
+  findAllUsers,
+  findByIdUser
 };
