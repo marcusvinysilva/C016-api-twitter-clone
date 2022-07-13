@@ -26,7 +26,18 @@ const findAllTweets = async (req, res) => {
     return res.send({ message: "Não existem tweets!" });
   }
 
-  res.send(tweets);
+  res.send({
+    results: tweets.map((tweet) => ({
+      id: tweet._id,
+      message: tweet.message,
+      likes: tweet.likes.length,
+      comments: tweet.comments.length,
+      retweets: tweet.retweets.length,
+      name: tweet.user.name,
+      username: tweet.user.username,
+      avatar: tweet.user.avatar
+    })),
+  });
 };
 
 module.exports = {
