@@ -114,6 +114,108 @@
           }
         }
       }
+    },
+    "/tweets/": {
+      "post": {
+        "summary": "Cria um novo tweet",
+        "description": "Rota responsável por criar um tweet.",
+        "tags": ["Tweets"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "#ref": "#/components/schemas/Tweet"
+              },
+              "examples": {
+                "Tweet": {
+                  "value": {
+                    "message": "Teste de tweet no Swagger"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "O token é inválido ou não foi informado!"
+          },
+          "400": {
+            "description": "Você não digitou uma mensagem!"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "#ref": "#/components/schemas/Tweet"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retorna todos os tweets",
+        "description": "Rota responsável por retornar todos os tweets.",
+        "tags": ["Tweets"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "O token é inválido ou não foi informado!"
+          },
+          "200": {
+            "description": "OK ou Não existem tweets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tweet"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tweets/search": {
+      "get": {
+        "summary": "Buscar tweets por mensagem",
+        "description": "Rota responsável por buscar os tweets que correspondem a mensagem enviada via query params.",
+        "tags": ["Tweets"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "message",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "O token é inválido ou não foi informado!"
+          },
+          "400": {
+            "description": "Não existyem tweets com essa mensagem!"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tweet"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -133,6 +235,26 @@
           "email": { "type": "string" },
           "password": { "type": "string" },
           "avatar": { "type": "string" }
+        }
+      },
+      "Tweet": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "likes": {
+            "type": "array"
+          },
+          "comments": {
+            "type": "array"
+          },
+          "retweets": {
+            "type": "array"
+          }
         }
       }
     }
