@@ -216,6 +216,87 @@
           }
         }
       }
+    },
+    "/tweets/{id}/like": {
+      "patch": {
+        "summary": "Dar like em um tweet",
+        "description": "Rota responsável por dar like em um tweet.",
+        "tags": ["Tweets"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "Id do tweet que vai receber o like",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "O token é inválido ou não foi informado!"
+          },
+          "400": {
+            "description": "Você já deu like neste tweet"
+          },
+          "200": {
+            "description": "Like realizado com sucesso"
+          }
+        }
+      }
+    },
+    "/tweets/{id}/retweet": {
+      "patch": {
+        "summary": "Retwittar um tweet",
+        "description": "Rota responsável por retwittar um tweet.",
+        "tags": ["Tweets"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "Id do tweet que vai ser retwittado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "O token é inválido ou não foi informado!"
+          },
+          "400": {
+            "description": "Você já retwittou este tweet"
+          },
+          "200": {
+            "description": "Retweet realizado com sucesso"
+          }
+        }
+      }
+    },
+    "/tweets/{id}/comment": {
+      "patch": {
+        "summary": "Comentar um tweet",
+        "description": "Rota responsável por comentar um tweet.",
+        "tags": ["Tweets"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "Id do tweet que vai ser comentado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "O token é inválido ou não foi informado!"
+          },
+          "200": {
+            "description": "Comentário realizado com sucesso"
+          }
+        }
+      }
     }
   },
   "components": {
