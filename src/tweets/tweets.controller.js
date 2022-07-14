@@ -52,7 +52,7 @@ const searchTweet = async (req, res) => {
   }
 
   res.send({
-    results: tweets.map((tweet) => ({
+    tweets: tweets.map((tweet) => ({
       id: tweet._id,
       message: tweet.message,
       likes: tweet.likes.length,
