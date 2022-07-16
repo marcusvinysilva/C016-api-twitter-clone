@@ -160,6 +160,18 @@
         "description": "Rota responsável por retornar todos os tweets.",
         "tags": ["Tweets"],
         "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "string"
+          }
+        ],
         "responses": {
           "401": {
             "description": "O token é inválido ou não foi informado!"
