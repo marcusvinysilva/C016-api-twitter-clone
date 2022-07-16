@@ -7,6 +7,10 @@
   },
   "servers": [
     {
+      "url": "https://api-twitter-clone-marcus.herokuapp.com/",
+      "description": "URL do Deploy"
+    },
+    {
       "url": "http://localhost:3001",
       "description": "URL de teste"
     }
