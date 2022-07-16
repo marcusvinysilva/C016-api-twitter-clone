@@ -20,13 +20,60 @@ const createTweet = async (req, res) => {
 };
 
 const findAllTweets = async (req, res) => {
-  const tweets = await tweetService.findAllTweets();
+  let { limit, offset } = req.query;
+
+  offset = Number(offset);
+  limit = Number(limit);
+
+  if (!offset) {
+    offset = 0;
+  }
+
+  if (!limit) {
+    limit = 5;
+  }
+
+  const tweets = await tweetService.findAllTweets(offset, limit);
+
+  const total = await tweetService.countTweets();
+
+  const currentUrl = req.baseUrl;
+
+  const next = offset + limit;
+
+  const nextUrl =
+    next < total ? `${currentUrl}?offset=${next}&limit=${limit}` : null;
+
+  /*   let nextUrl;
+  if (next < total) {
+    nextUrl = `${currentUrl}?offset=${next}&limit=${limit}`;
+  } else {
+    nextUrl = null;
+  } */
+
+  const previous = offset - limit < 0 ? null : offset - limit;
+
+  const previousUrl =
+    previous != null ? `${currentUrl}?offset=${previous}&limit=${limit}` : null;
+
+  /*   let previousUrl;
+  if (previous != null) {
+    previousUrl = `${currentUrl}?offset=${previous}&limit=${limit}`;
+  } else {
+    previousUrl = null;
+  } */
 
   if (tweets.length === 0) {
     return res.send({ message: "Não existem tweets!" });
   }
 
   res.send({
+    nextUrl,
+    previousUrl,
+    limit,
+    offset,
+    total,
+
     results: tweets.map((tweet) => ({
       id: tweet._id,
       message: tweet.message,
@@ -111,5 +158,5 @@ module.exports = {
   searchTweet,
   likeTweet,
   retweetTweet,
-  commentTweet
+  commentTweet,
 };

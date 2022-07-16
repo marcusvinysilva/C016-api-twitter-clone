@@ -3,8 +3,14 @@ const Tweet = require("./Tweet");
 const createTweet = async (message, userId) =>
   await Tweet.create({ message, user: userId });
 
-const findAllTweets = async () =>
-  await Tweet.find().sort({ _id: -1 }).populate("user");
+const findAllTweets = async (offset, limit) =>
+  await Tweet.find()
+    .sort({ _id: -1 })
+    .skip(offset)
+    .limit(limit)
+    .populate("user");
+
+const countTweets = async () => await Tweet.countDocuments();
 
 const searchTweet = async (message) =>
   await Tweet.find({
@@ -66,5 +72,6 @@ module.exports = {
   searchTweet,
   likeTweet,
   retweetTweet,
-  commentTweet
+  commentTweet,
+  countTweets
 };
